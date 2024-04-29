@@ -1,0 +1,119 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+class Binarysearchtree {
+    Node root;
+    Binarysearchtree()
+    {
+        root = null;
+    }
+    public void insert(int item)
+    {
+        root = insertpos(root,item);
+    }
+    public Node insertpos(Node root,int item)
+    {
+        if(root==null)
+        {
+            root = new Node(item);
+            return root;
+        }
+        if(item<root.data)
+        {
+            root.left = insertpos(root.left,item);
+        }
+        else if(item>root.data)
+        {
+            root.right = insertpos(root.right,item);
+        }
+        return root;
+    }
+    public void inorder()
+    {
+        inorderpos(root);
+    }
+    public void inorderpos(Node root)
+    {
+        if(root!=null)
+        {
+            inorderpos(root.left);
+            System.out.print(root.data+" ");
+            inorderpos(root.right);
+        }
+    }
+    public void delete(int elem)
+    {
+        deletepos(root,elem);
+    }
+    public Node deletepos(Node root,int elem)
+    {
+        if(root == null)
+        {
+            return null;
+        }
+        if(elem<root.data)
+        {
+            root.left = deletepos(root.left,elem);
+        }
+        else if(elem>root.data)
+        {
+            root.right = deletepos(root.right,elem);
+        }
+        else
+        {
+            if(root.left==null)
+            {
+                return root.right;
+            }
+            else if(root.right==null)
+            {
+                return root.left;
+            }
+            root.data = inordersuccessor(root.right);
+            root.right = deletepos(root.right,root.data);
+        }
+        return root;
+    }
+    public int inordersuccessor(Node root)
+    {
+        int minvalue = root.data;
+        while(root.left!=null)
+        {
+            minvalue = root.left.data;
+            root = root.left;
+        }
+        return minvalue;
+    }
+}
+
+public class Main {
+    public static void main(String[] args)
+    {
+        Binarysearchtree bst = new Binarysearchtree();
+        bst.insert(5);
+        bst.insert(3);
+        bst.insert(2);
+        bst.insert(4);
+        bst.insert(9);
+        bst.insert(6);
+        bst.insert(8);
+        bst.insert(7);
+        
+        bst.inorder();
+        
+        bst.delete(8);
+        System.out.println();
+        bst.inorder();
+    }
+}

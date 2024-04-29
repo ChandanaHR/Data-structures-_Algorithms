@@ -1,0 +1,32 @@
+public static int equilibriumPoint(long arr[], int n) {
+
+        // Your code here
+        if(n==1)
+        {
+            return 1;
+        }
+        long sum = 0;
+        int res = -1;
+        long[] left = new long[n];
+        long[] right = new long[n];
+        for(int k=0;k<n;k++)
+        {
+            sum = sum+arr[k];
+        }
+        left[n-1] = sum-arr[n-1];
+        right[0] = sum-arr[0];
+        int l,r;
+        for(l=n-2,r=1;l>=0&&r<n;l--,r++)
+        {
+            left[l] = left[l+1]-arr[l];
+            right[r] = right[r-1]-arr[r];
+        }
+        for(int z=0;z<n;z++)
+        {
+            if(left[z] == right[z])
+            {
+                return z+1;
+            }
+        }
+        return -1;
+    }

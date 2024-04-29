@@ -1,0 +1,26 @@
+/*Member variable Encapsulation - Associated with the members or the variables of the class. Involves controlling access to data
+members.*/
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class student {
+    int rollno;
+    public int getrollno() {
+        return rollno;
+    }
+    public void setrollno(int r) {
+        rollno = r;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        student s1 = new student();
+        s1.setrollno(23);
+        System.out.println(s1.getrollno());
+    }
+}
+
+/*Declare variable and method as private and notice the changes*/

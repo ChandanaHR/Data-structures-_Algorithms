@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static void undirectionalgraph(int[][] matrix,int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the source vertex");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination vertex");
+        int dest = sc.nextInt();
+        matrix[src][dest] = 1;
+        matrix[dest][src] = 1;
+    }
+    public static void directionalgraph(int[][] matrix,int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the source vertex");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination vertex");
+        int dest = sc.nextInt();
+        matrix[src][dest] = 1;
+    }
+    public static void display(int[][] matrix,int v) {
+        for(int i=0;i<v;i++) {
+            for(int j=0;j<v;j++) {
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    public static void bfs(int[][] matrix,int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the start vertex");
+        int start = sc.nextInt();
+        if(start<v) {
+            Queue<Integer> q = new LinkedList<>();
+            boolean visited[] = new boolean[v];
+            q.add(start);
+            visited[start] = true;
+            while(!q.isEmpty()) {
+                int temp = q.remove();
+                System.out.print(temp+" ");
+                for(int i=0;i<v;i++) {
+                    if(matrix[temp][i]==1 && !visited[i]) {
+                        q.add(i);
+                        visited[i] = true;
+                    }
+                }
+            }
+        }
+        
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        int[][] matrix = new int[v][v];
+        while(true) {
+            System.out.println("Enter the choice");
+            int choice = sc.nextInt();
+            switch(choice) {
+                case 1 : undirectionalgraph(matrix,v);
+                         break;
+                case 2 : directionalgraph(matrix,v);
+                         break;
+                case 3 : display(matrix,v);
+                         break;
+                case 4 : bfs(matrix,v);
+                         break;
+                case 6 : System.exit(0);
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+public class Main {
+    static Node head;
+    static Node prev = null;
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static void convertdll(Node root)
+    {
+        if(root==null)
+        {
+            return;
+        }
+        convertdll(root.left);
+        if(prev==null)
+        {
+            head = root;
+        }
+        else
+        {
+            root.left = prev;
+            prev.right = root;
+        }
+        prev = root;
+        convertdll(root.right);
+    }
+    public static void printlist(Node root)
+    {
+        while(root!=null)
+        {
+            System.out.print(root.data+" ");
+            root = root.right;
+        }
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(10);
+        insertleft(root,20);
+        insertright(root,30);
+        insertleft(root.left,40);
+        insertright(root.left,50);
+        insertleft(root.right,60);
+        insertright(root.right,70);
+        
+        convertdll(root);
+        
+        printlist(head);
+    }
+}

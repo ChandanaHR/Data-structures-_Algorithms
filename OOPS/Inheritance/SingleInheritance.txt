@@ -1,0 +1,39 @@
+/*Single Inheritance - Sub class will inherit the properties of one parent class or super class*/
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+/*Parent class*/
+class Employee {
+    String firstname,lastname,employeeid;
+    Employee(String fn,String ln,String eid) {
+        firstname = fn;
+        lastname = ln;
+        employeeid = eid;
+    }
+    public String display() {
+        return ("Firstname:"+firstname+"\n"+"LastName:"+lastname+"\n"+"EmployeeId:"+employeeid);
+    }
+}
+
+/*Child class*/
+class Engineer extends Employee {
+    String branch;
+    int yearofpass;
+    Engineer(String firstname,String lastname,String employeeid,String dept,int passedyear) {
+        super(firstname,lastname,employeeid);
+        branch = dept;
+        yearofpass = passedyear;
+    }
+    @Override public String display() {
+        return (super.display()+"\n"+"Branch:"+branch+"\n"+"Passedoutyear:"+yearofpass);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Engineer e = new Engineer("Chandana","HR","ee212","CS",2022);
+        System.out.println(e.display());
+    }
+}

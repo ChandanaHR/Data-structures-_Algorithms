@@ -1,0 +1,85 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    public Node(int a)
+    {
+        data = a;
+        left=right = null;
+    }
+}
+
+public class Main {
+    public static void main(String[] args)
+    {
+        Binarytree tree = new Binarytree();
+        tree.root = new Node(7);
+        tree.root.left = new Node(6);
+        tree.root.right = new Node(8);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+        tree.root.right.left = new Node(1);
+        tree.root.right.right = new Node(2);
+        System.out.println("Level order traversal using naive approach");
+        tree.printalllevels();
+    }
+}
+
+class Binarytree {
+    Node root;
+    
+    public Binarytree()
+    {
+        root = null;
+    }
+    
+    void printalllevels()
+    {
+        int h = height(root);
+        int i;
+        for(i=1;i<=h;i++)
+        {
+            printlevel(root,i);
+        }
+    }
+    
+    int height(Node root)
+    {
+        if(root == null)
+        {
+            return 0;
+        }
+        int lheight = height(root.left);
+        int rheight = height(root.right);
+        if(lheight>rheight)
+        {
+            return lheight+1;
+        }
+        else
+        {
+            return rheight+1;
+        }
+    }
+    
+    void printlevel(Node root,int level)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        if(level==1)
+        {
+            System.out.print(root.data+" ");
+        }
+        else if(level>1)
+        {
+            System.out.print("----");
+            printlevel(root.left,level-1);
+            System.out.print("----");
+            printlevel(root.right,level-1);
+        }
+    }
+}

@@ -1,0 +1,96 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+class Pair {
+    Node first;
+    int second;
+    Pair(Node practice,int b)
+    {
+        first = practice;
+        second = b;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static void printverticalorder(Node root)
+    {
+        if(root==null)
+        {
+            return;
+        }
+        int hd = 0;
+        HashMap<Integer, ArrayList<Integer> > map = new HashMap<>();
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(root,hd));
+        int max = 0,min=0;
+        while(!q.isEmpty())
+        {
+           Pair temp = q.remove();
+           hd = temp.second;
+           Node node = temp.first;
+           if(!map.containsKey(hd))
+           {
+               map.put(hd,new ArrayList<>());
+           }
+           map.get(hd).add(node.data);
+           if(node.left!=null)
+           {
+               q.add(new Pair(node.left,hd-1));
+           }
+           if(node.right!=null)
+           {
+               q.add(new Pair(node.right,hd+1));
+           }
+           if(min>hd)
+           {
+               min = hd;
+           }
+           else if(max<hd)
+           {
+               max = hd;
+           }
+        }
+        for(int i=min;i<=max;i++)
+           {
+             ArrayList<Integer> tmp = map.get(i);
+             for(int j=0;j<tmp.size();j++)
+             {
+                 System.out.print(tmp.get(j)+" ");
+             }
+             System.out.println();
+           }
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(10);
+        insertleft(root,20);
+        insertright(root,30);
+        insertleft(root.left,40);
+        insertright(root.left,50);
+        insertleft(root.right,60);
+        insertright(root.right,70);
+        
+        printverticalorder(root);
+    }
+}

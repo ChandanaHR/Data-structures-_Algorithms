@@ -1,0 +1,104 @@
+//Deletion in binary tree java code
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int a)
+    {
+        data = a;
+        left = right = null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node root,int item)
+    {
+        root.left = new Node(item);
+        return root.left;
+    }
+    public static Node insertright(Node root,int item)
+    {
+        root.right = new Node(item);
+        return root.right;
+    }
+    static Node deletion(Node root,int key)
+    {
+        if(root==null)
+        {
+            return null;
+        }
+        if(root.left==null && root.right==null)
+        {
+            return root.data==key ? root:null;
+        }
+        Node temp=null,keynode=null,last=null;
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty())
+        {
+            temp = q.peek();
+            q.remove();
+            if(temp.data==key)
+            {
+                keynode = temp;
+            }
+            if(temp.left!=null)
+            {
+                last = temp;
+                q.add(temp.left);
+            }
+            if(temp.right!=null)
+            {
+                last = temp;
+                q.add(temp.right);
+            }
+        }
+        if(keynode!=null)
+        {
+            keynode.data = temp.data;
+            if(last.right==temp)
+            {
+                last.right = null;
+            }
+            else 
+            {
+                last.left = null;
+            }
+        }
+        return root;
+    }
+    static void display(Node root)
+    {
+        if(root==null)
+        {
+            return;
+        }
+        System.out.print(root.data + " ");
+        display(root.left);
+        display(root.right);
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(1);
+        insertleft(root,2);
+        insertright(root,3);
+        insertleft(root.left,4);
+        insertright(root.left,5);
+        insertleft(root.right,6);
+        insertright(root.right,7);
+        
+        System.out.println();
+        
+        display(root);
+        
+        int key = 2;
+        root = deletion(root,key);
+        
+        System.out.println();
+        
+        display(root);
+    }
+}

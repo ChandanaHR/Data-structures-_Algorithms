@@ -1,0 +1,60 @@
+//Recursive approach to find height of binary tree using c language
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct node {
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node *createnode(int a)
+{
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data = a;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    return newnode;
+}
+
+struct node *insertleft(struct node *root,int value)
+{
+    root->left = createnode(value);
+    return root->left;
+}
+
+struct node *insertright(struct node *root,int value)
+{
+    root->right = createnode(value);
+    return root->right;
+}
+
+int height(struct node *root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+    int leftheight = height(root->left);
+    int rightheight = height(root->right);
+    if(leftheight>rightheight)
+    {
+        return leftheight+1;
+    }
+    else
+    {
+        return rightheight+1;
+    }
+}
+
+int main()
+{
+    struct node *root = createnode(1);
+    insertleft(root,2);
+    insertright(root,3);
+    insertleft(root->left,4);
+    insertright(root->left,5);
+    int a = height(root);
+    printf("Height of a bianry tree is: %d\n",a);
+}

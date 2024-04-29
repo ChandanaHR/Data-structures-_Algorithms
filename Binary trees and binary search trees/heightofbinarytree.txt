@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static int heightofbinary(Node root)
+    {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        int height=0;
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            for(int i=0;i<size;i++)
+            {
+                Node temp = q.poll();
+                if(temp.left!=null)
+                {
+                    q.add(temp.left);
+                }
+                if(temp.right!=null)
+                {
+                    q.add(temp.right);
+                }
+            }
+            height++;
+        }
+        return height;
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(1);
+        insertleft(root,2);
+        insertright(root,3);
+        insertleft(root.left,4);
+        insertright(root.left,5);
+        insertleft(root.right,6);
+        insertright(root.right,7);
+        
+        int height = heightofbinary(root);
+        System.out.println("Height of binary tree is " +height);
+    }
+}

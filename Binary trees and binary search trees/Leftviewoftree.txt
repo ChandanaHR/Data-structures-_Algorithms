@@ -1,0 +1,90 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int a)
+    {
+       data = a;
+       left = null;
+       right = null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int item)
+{
+    node.left = new Node(item);
+    return node.left;
+}
+
+public static Node insertright(Node node,int item)
+{
+    node.right = new Node(item);
+    return node.right;
+}
+
+
+public static ArrayList<Integer> leftview(Node root)
+{
+    ArrayList<Integer> ans = new ArrayList<>();
+    Queue<Node> q = new LinkedList<>();
+    q.add(root);
+    q.add(null);
+    boolean ok = true;
+    while(!q.isEmpty())
+    {
+        Node it = q.poll();
+        if(it==null)
+        {
+            if(ok==false)
+            {
+                ok = true;
+            }
+            if(q.size()==0)
+            {
+                break;
+            }
+            else
+            {
+                q.add(null);
+            }
+        }
+        else
+        {
+            if(ok)
+            {
+                ans.add(it.data);
+                ok = false;
+            }
+            if(it.left!=null)
+            {
+                q.add(it.left);
+            }
+            if(it.right!=null)
+            {
+                q.add(it.right);
+            }
+        }
+    }
+    return ans;
+}
+
+    public static void main(String[] args)
+    {
+        Node root = new Node(1);
+        insertleft(root,2);
+        insertright(root,3);
+        insertright(root.left,4);
+        insertright(root.left.right,5);
+        insertright(root.left.right.right,6);
+        
+        ArrayList<Integer> res = leftview(root);
+        for(int x : res)
+        {
+            System.out.print(x+" ");
+        }
+    }
+}

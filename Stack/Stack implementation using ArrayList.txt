@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static boolean isfull (ArrayList<Integer> stack,int n) {
+        if(stack.size()==n) {
+            return true;
+        }
+        return false;
+    }
+    public static void push(ArrayList<Integer> stack,int item) {
+        stack.add(item);
+    }
+    public static void display(ArrayList<Integer> stack) {
+        for(int i=0;i<stack.size();i++) {
+            System.out.print(stack.get(i)+" ");
+        }
+    }
+    public static boolean isempty(ArrayList<Integer> stack) {
+        if(stack.size()==0) {
+            return true;
+        }
+        return false;
+    }
+    public static int pop(ArrayList<Integer> stack) {
+        int top=0;
+        if(isempty(stack)) {
+            return -1;
+        }
+        else {
+            top = stack.get(stack.size()-1);
+            stack.remove(stack.size()-1);
+        }
+        return top;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        ArrayList<Integer> stack = new ArrayList<Integer>(n);
+        while(true) {
+            System.out.println("Enter the choice");
+            int choice = sc.nextInt();
+            switch(choice) {
+                case 1 : if(isfull(stack,n)) {
+                            System.out.println("Stack is full cannot insert an element");
+                         }
+                         else {
+                             System.out.println("Enter the item to be pushed");
+                             int item = sc.nextInt();
+                             push(stack,item);
+                         }
+                         break;
+                case 2 : display(stack);
+                         break;
+                case 3 : int ele = pop(stack);
+                         System.out.println("Popped element is: " +ele);
+                         break;
+                case 4 : System.exit(0);
+                default: System.out.println("Invalid choice");
+            }
+        }
+    }
+}

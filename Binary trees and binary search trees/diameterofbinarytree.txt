@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+
+public class Main {
+    static int dia;
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static int height(Node root)
+    {
+        if(root == null)
+        {
+            return 0;
+        }
+        int lh = height(root.left);
+        int rh = height(root.right);
+        dia = Math.max(dia,lh+rh);
+        return 1+Math.max(lh,rh);
+    }
+    public static int diameter(Node root)
+    {
+        dia = 0;
+        height(root);
+        return dia;
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(4);
+        insertleft(root,7);
+        insertright(root,8);
+        insertleft(root.right,1);
+        insertright(root.right,0);
+        insertleft(root.right.left,9);
+        
+        int a = diameter(root);
+        System.out.println(a);
+    }
+}

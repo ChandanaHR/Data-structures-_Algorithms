@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        String str1 = sc.next();
+        String str2 = sc.next();
+        int flag = 0;
+        if(str1.length()!=str2.length() || str2.length()<2)
+        {
+            System.out.println("Not possible");
+        }
+        int len = str1.length();
+        int n = 2%len;
+        int rotate = len-2;
+        String rotatestring = str1.substring(rotate)+str1.substring(0,rotate);
+        System.out.println(rotatestring);
+        if(str2.equals(rotatestring))
+        {
+            System.out.println("Equal");
+        }
+        else
+        {
+            System.out.println("Not equal");
+        }
+        String rotatestring1 = str1.substring(2,len)+str1.substring(0,2);
+        System.out.println(rotatestring1);
+        if(str2.equals(rotatestring1))
+        {
+            System.out.println("Equal");
+        }
+        else
+        {
+            System.out.println("Not equal");
+        }
+    }
+}

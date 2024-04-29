@@ -1,0 +1,49 @@
+import java.io.*;
+//Recursive approach to find the height of binarytree
+
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int a)
+    {
+        data = a;
+        left=right=null;
+    }
+}
+
+public class Main{
+    public static void main(String[] args)
+    {
+       Node root = new Node(1);
+       root.left = new Node(2);
+       root.right = new Node(3);
+       root.left.left = new Node(4);
+       root.left.right = new Node(5);
+       Binarytree tree = new Binarytree();
+       System.out.println(tree.height(root));
+    }
+}
+
+class Binarytree
+{
+    int height(Node node)
+    {
+        if(node==null)
+        {
+            return 0;
+        }
+        int leftheight = height(node.left);
+        int rightheight = height(node.right);
+        if(leftheight>rightheight)
+        {
+            return leftheight+1;
+        }
+        else
+        {
+            return rightheight+1;
+        }
+    }
+}

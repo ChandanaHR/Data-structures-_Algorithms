@@ -1,0 +1,23 @@
+TreeNode prev = null;
+    TreeNode first = null;  //first wrong node
+    TreeNode second = null; //second wrong node
+    public void recoverTree(TreeNode root) {
+        inorder(root);
+        swap(first,second);
+    }
+    public void inorder(TreeNode root){
+        if(root==null) return;
+        inorder(root.left);
+        if(prev!=null && root.val<prev.val) {
+            second = root;
+            if(first==null) first=prev;
+            else return;
+        }
+        prev = root;
+        inorder(root.right);
+    }
+    public void swap(TreeNode first,TreeNode second){
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+    }

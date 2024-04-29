@@ -1,0 +1,20 @@
+/*Private access modifier - Accessible within the class or package not outside the class or package*/
+
+import java.io.*;
+import java.util.*;
+
+class A {
+    private int length;
+    private void msg() {
+        System.out.println("Hello Gm");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        A obj = new A();
+        obj.msg();
+    }
+}
+
+/*Compile time error*/

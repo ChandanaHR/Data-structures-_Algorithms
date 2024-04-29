@@ -1,0 +1,43 @@
+/*Hybrid Inheritance - Combination of Single, multi level and hierarchical inheritance*/
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Grandfather {
+    public String print() {
+        return("This is the main root of the tree\n");
+    }
+}
+
+class Father extends Grandfather {
+    @Override public String print() {
+        return (super.print()+"This is the subroot of the root\n");
+    }
+    public String display() {
+        return("This is the root of son and daughter class\n");
+    }
+}
+
+class Son extends Father {
+    @Override public String display() {
+        return (super.display()+"This is the one subclass of the root father\n");
+    }
+}
+
+class Daughter extends Father {
+    @Override public String display() {
+        return (super.display()+"This is the second subclass of the root father\n");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Father fa = new Father();
+        System.out.println(fa.print());
+        Son son = new Son();
+        System.out.println(son.display());
+        Daughter dau = new Daughter();
+        System.out.println(dau.display());
+    }
+}

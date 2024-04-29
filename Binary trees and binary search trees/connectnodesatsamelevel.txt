@@ -1,0 +1,84 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right,nextright;
+    Node(int key)
+    {
+        data = key;
+        left=right=nextright=null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static void connect(Node root)
+    {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        Node temp = null;
+        while(!q.isEmpty())
+        {
+            int n = q.size();
+            for(int i=0;i<n;i++)
+            {
+                Node prev = temp;
+                temp = q.poll();
+                
+                if(i>0)
+                {
+                    prev.nextright = temp;
+                }
+                
+                if(temp.left!=null)
+                {
+                    q.add(temp.left);
+                }
+                
+                if(temp.right!=null)
+                {
+                    q.add(temp.right);
+                }
+            }
+            temp.nextright = null;
+        }
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(10);
+        insertleft(root,20);
+        insertright(root,30);
+        insertleft(root.left,40);
+        insertright(root.left,50);
+        insertleft(root.right,60);
+        insertright(root.right,70);
+        
+        connect(root);
+        
+        int a = root.nextright!=null ? root.nextright.data : -1;
+        System.out.println("Next right " +root.data+" -> "+a);
+        int b = root.left.nextright!=null ? root.left.nextright.data : -1;
+        System.out.println("Next right " +root.left.data+" -> "+b);
+        int c = root.right.nextright!=null ? root.right.nextright.data : -1;
+        System.out.println("Next right " +root.right.data+" -> "+c);
+        int d = root.left.left.nextright!=null ? root.left.left.nextright.data : -1;
+        System.out.println("Next right " +root.left.left.data+" -> "+d);
+        int e = root.left.right.nextright!=null ? root.left.right.nextright.data : -1;
+        System.out.println("Next right " +root.left.right.data+" -> "+e);
+        int f = root.right.left.nextright!=null ? root.right.left.nextright.data : -1;
+        System.out.println("Next right " +root.right.left.data+" -> "+f);
+        int g = root.right.right.nextright!=null ? root.right.right.nextright.data : -1;
+        System.out.println("Next right " +root.right.right.data+" -> "+g);
+    }
+}

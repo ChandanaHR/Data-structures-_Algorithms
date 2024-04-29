@@ -1,0 +1,61 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args)
+    {
+        TreeArray ob = new TreeArray();
+        ob.Root("A");
+        ob.leftchild("B",0);
+        ob.rightchild("C",0);
+        ob.leftchild("D",1);
+        ob.rightchild("E",1);
+        ob.leftchild("F",2);
+        ob.rightchild("G",2);
+        ob.printnodes();
+    }
+}
+
+class TreeArray {
+    String str[] = new String[10];
+    public void Root(String key)
+    {
+        str[0] = key;
+    }
+    public void leftchild(String key,int root)
+    {
+        if(str[root]==null)
+        {
+            System.out.println("Cant set a child");
+        }
+        else
+        {
+            str[(root*2)+1] = key;
+        }
+    }
+    public void rightchild(String key,int root)
+    {
+        if(str[root]==null)
+        {
+            System.out.println("Cant set a child");
+        }
+        else
+        {
+            str[(root*2)+2] = key;
+        }
+    }
+    public void printnodes()
+    {
+        for(int i=0;i<10;i++)
+        {
+            if(str[i]!=null)
+            {
+                System.out.print(str[i]+" ");
+            }
+            else
+            {
+                System.out.print("-"+" ");
+            }
+        }
+    }
+}

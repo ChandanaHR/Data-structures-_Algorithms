@@ -1,0 +1,24 @@
+/*Public access modifier - The access level of public access modifier is everywhere. If you have declared any class, methods
+using public access modifier then it is accessible within the class or outside the class and within the package or outside the package*/
+
+/*First package*/
+package pack;
+
+public class public1 {
+    public void display1() {
+        System.out.println("I have displayed");
+    }
+}
+
+/*second package*/
+package mypack;
+import pack.*;
+
+class public2 {
+    public static void main(String[] args) {
+        public1 obj = new public1();
+        obj.display1();
+    }
+}
+
+/*Output - I have displayed*/

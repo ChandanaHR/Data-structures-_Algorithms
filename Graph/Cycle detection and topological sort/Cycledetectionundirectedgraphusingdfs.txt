@@ -1,0 +1,80 @@
+//Cycle detection in undirected graph using dfs
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Edge {
+    int source;
+    int destination;
+    Edge(int s,int d) {
+        source = s;
+        destination = d;
+    }
+}
+
+public class Main {
+    public static void creategraph(ArrayList<Edge> graph[],int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the source vertex");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination vertex");
+        int dest = sc.nextInt();
+        graph[src].add(new Edge(src,dest));
+        graph[dest].add(new Edge(dest,src));
+    }
+    public static void display(ArrayList<Edge> graph[],int v) {
+        for(int i=0;i<v;i++) {
+            for(int j=0;j<graph[i].size();j++) {
+                Edge e = graph[i].get(j);
+                System.out.print(e.source+"->"+e.destination+" ");
+            }
+            System.out.println();
+        }
+    }
+    public static boolean detectcycle(ArrayList<Edge> graph[],int v,int current,int parent,boolean visited[]) {
+        visited[current] = true;
+        for(int i=0;i<graph[current].size();i++) {
+            Edge e = graph[current].get(i);
+            if(visited[e.destination]==true && parent!=e.destination) {  //Cycle condition
+                return true;
+            }
+            if(!visited[e.destination]) {
+                if(detectcycle(graph,v,e.destination,current,visited) == true) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        ArrayList<Edge> graph[] = new ArrayList[v];
+        for(int i=0;i<v;i++) {
+            graph[i] = new ArrayList<>();
+        }
+        while(true) {
+            System.out.println("Enter the choice");
+            int choice = sc.nextInt();
+            switch(choice) {
+                case 1 : creategraph(graph,v);
+                         break;
+                case 2 : display(graph,v);
+                         break;
+                case 3 : int current = sc.nextInt();
+                         int parent = -1;
+                         if(detectcycle(graph,v,current,parent,new boolean[v]))
+                         {
+                             System.out.println("Cycle exists");
+                         }
+                         else {
+                             System.out.println("Cycle doesn't exists");
+                         }
+                         break;
+                case 4 : System.exit(0);
+                default: System.out.println("Invalid choice");
+            }
+        }
+    }
+}

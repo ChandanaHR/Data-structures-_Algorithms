@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+public class Main {
+    public static int maximumpathsum(Node root)
+    {
+        int maximumpathsum = Integer.MIN_VALUE;
+        if(root==null)
+        {
+            return 0;
+        }
+        int leftpathsum = maximumpathsum(root.left);
+        int rightpathsum = maximumpathsum(root.right);
+        int w = root.data;
+        int x = root.data+leftpathsum;
+        int y = root.data+rightpathsum;
+        int z = root.data+leftpathsum+rightpathsum;
+        int currentpathsum = Math.max(Math.max(Math.max(w,x),y),z);
+        maximumpathsum = Math.max(maximumpathsum,currentpathsum);
+        System.out.println(maximumpathsum);
+        return Math.max(Math.max(w,x),y);
+    }
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(3);
+        insertleft(root,4);
+        insertright(root,5);
+        insertleft(root.left,-10);
+        insertright(root.left,4);
+        
+        int a = maximumpathsum(root);
+        System.out.println(a);
+    }
+}

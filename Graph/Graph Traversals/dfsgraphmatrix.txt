@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static void undirectional(int[][] graph,int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the source vertex");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination vertex");
+        int dest = sc.nextInt();
+        graph[src][dest] = 1;
+        graph[dest][src] = 1;
+    }
+    public static void directional(int[][] graph,int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the source vertex");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination vertex");
+        int dest = sc.nextInt();
+        graph[src][dest] = 1;
+    }
+    public static void display(int[][] graph,int v) {
+        for(int i=0;i<v;i++) {
+            for(int j=0;j<v;j++) {
+                System.out.print(graph[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    public static void dfs(int[][] graph,int v,int start,boolean visited[]) {
+        System.out.print(start+" ");
+        visited[start] = true;
+        for(int i=0;i<v;i++) {
+            if(graph[start][i]==1 && !visited[i]) {
+                dfs(graph,v,i,visited);
+            }
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        int[][] graph = new int[v][v];
+        while(true) {
+            System.out.println("Enter the choice");
+            int choice = sc.nextInt();
+            switch(choice) {
+                case 1 : undirectional(graph,v);
+                         break;
+                case 2 : directional(graph,v);
+                         break;
+                case 3 : display(graph,v);
+                         break;
+                case 4 : int start = sc.nextInt();
+                         boolean visited[] = new boolean[v];
+                         dfs(graph,v,start,visited);
+                         break;
+                case 5 : System.exit(0);
+                default: System.out.println("Invalid");
+            }
+        }
+    }
+}

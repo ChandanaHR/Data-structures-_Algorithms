@@ -1,0 +1,95 @@
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+public class Main {
+    public static boolean isidentical(Node root1,Node root2)
+    {
+        if(root1==null && root2==null)
+        {
+            return true;
+        }
+        if(root1==null || root2==null)
+        {
+            return false;
+        }
+        Queue<Node> q1 = new LinkedList<>();
+        Queue<Node> q2 = new LinkedList<>();
+        q1.add(root1);
+        q2.add(root2);
+        while(!q1.isEmpty() && !q2.isEmpty())
+        {
+            Node temp1 = q1.poll();
+            Node temp2 = q2.poll();
+            
+            if(temp1.data != temp2.data)
+            {
+                return false;
+            }
+            
+            if((temp1.left==null && temp2.left!=null) || (temp1.left!=null && temp2.left==null))
+            {
+                return false;
+            }
+            
+            if((temp1.right==null && temp2.right!=null) || (temp1.right!=null && temp2.right==null))
+            {
+                return false;
+            }
+            
+            if(temp1.left!=null && temp2.left!=null)
+            {
+                q1.add(temp1.left);
+                q2.add(temp2.left);
+            }
+            
+            if(temp1.right!=null && temp2.right!=null)
+            {
+                q1.add(temp1.right);
+                q2.add(temp2.right);
+            }
+        }
+        return true;    
+    }
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static void main(String[] args)
+    {
+        Node root1 = new Node(1);
+        insertleft(root1,2);
+        insertright(root1,3);
+        
+        Node root2 = new Node(1);
+        insertleft(root2,2);
+        insertright(root2,3);
+        
+        boolean b = isidentical(root1,root2);
+        
+        if(b==true)
+        {
+            System.out.println("Given binary trees are identical");
+        }
+        else
+        {
+            System.out.println("Given binary trees are not identical");
+        }
+    }
+}

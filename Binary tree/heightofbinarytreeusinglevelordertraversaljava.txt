@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int a)
+    {
+        data = a;
+        left=right=null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int value)
+    {
+        node.left = new Node(value);
+        return node.left;
+    }
+    public static Node insertright(Node node,int value)
+    {
+        node.right = new Node(value);
+        return node.right;
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(1);
+        insertleft(root,2);
+        insertright(root,3);
+        insertleft(root.left,4);
+        insertright(root.left,5);
+        Binarytree tree = new Binarytree();
+        System.out.println(tree.height(root));
+    }
+}
+
+class Binarytree {
+    public static int height(Node node)
+    {
+        int height = 0;
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(node);
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            for(int i=0;i<size;i++)
+            {
+                Node temp = q.poll();
+                if(temp.left != null)
+                {
+                    q.add(temp.left);
+                }
+                if(temp.right != null)
+                {
+                    q.add(temp.right);
+                }
+            }
+            height++;
+        }
+        return height;
+    }
+}

@@ -1,0 +1,103 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+class Binarysearchtree {
+    Node root;
+    Binarysearchtree()
+    {
+        root = null;
+    }
+    public void insert(int item)
+    {
+        root = insertpos(root,item);
+    }
+    int min = Integer.MAX_VALUE;
+    int mindata = -1;
+    Node temp = null;
+    public Node insertpos(Node root,int item)
+    {
+        if(root == null)
+        {
+            root = new Node(item);
+        }
+        else
+        {
+            if(item<root.data)
+            {
+                root.left = insertpos(root.left,item);
+            }
+            else if(item>root.data)
+            {
+                root.right = insertpos(root.right,item);
+            }
+        }
+        return root;
+    }
+    public void inorder()
+    {
+        inorderpos(root);
+    }
+    public void inorderpos(Node root)
+    {
+        if(root!=null)
+        {
+            inorderpos(root.left);
+            System.out.print(root.data+" ");
+            inorderpos(root.right);
+        }
+    }
+    public void closest(int k)
+    {
+        closest(root,k);
+    }
+    public void closest(Node root,int k)
+    {
+        if(root == null) return;
+        if(k == root.data)
+        {
+            mindata = k;
+            return;
+        }
+        if(min>Math.abs(k-root.data))
+        {
+            min = Math.abs(k-root.data);
+            System.out.println(min);
+            mindata = root.data;
+        }
+        if(k<root.data) closest(root.left,k);
+        if(k>root.data) closest(root.right,k);
+        System.out.println(mindata);
+    }
+}
+
+public class Main {
+    public static void main(String[] args)
+    {
+        Binarysearchtree bst = new Binarysearchtree();
+        
+        bst.insert(9);
+        bst.insert(4);
+        bst.insert(17);
+        bst.insert(3);
+        bst.insert(6);
+        bst.insert(22);
+        bst.insert(5);
+        bst.insert(7);
+        bst.insert(20);
+        
+        bst.inorder();
+        
+        bst.closest(2);
+    }
+}

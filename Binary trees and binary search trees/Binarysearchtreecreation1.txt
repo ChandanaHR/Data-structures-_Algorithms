@@ -1,0 +1,74 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int key)
+    {
+        data = key;
+        left=right=null;
+    }
+}
+
+class Binarysearchtree {
+    Node root;
+    Binarysearchtree()
+    {
+        root = null;
+    }
+    
+    public void insert(int item)
+    {
+        root = insertpos(root,item);
+    }
+    
+    public Node insertpos(Node root,int item)
+    {
+        if(root == null)
+        {
+            root = new Node(item);
+            return root;
+        }
+        if(item<root.data)
+        {
+            root.left = insertpos(root.left,item);
+        }
+        else if(item>root.data)
+        {
+            root.right = insertpos(root.right,item);
+        }
+        return root;
+    }
+    
+    public void inorder()
+    {
+        inorderpos(root);
+    }
+    
+    public void inorderpos(Node root)
+    {
+        if(root!=null)
+        {
+            inorderpos(root.left);
+            System.out.print(root.data + " ");
+            inorderpos(root.right);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args)
+    {
+        Binarysearchtree bst = new Binarysearchtree();
+        
+        bst.insert(50);
+        bst.insert(60);
+        bst.insert(70);
+        bst.insert(10);
+        bst.insert(20);
+        
+        bst.inorder();
+    }
+}

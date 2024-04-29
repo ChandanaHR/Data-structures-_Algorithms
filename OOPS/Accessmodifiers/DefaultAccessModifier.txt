@@ -1,0 +1,27 @@
+/*Access modifier - Access modifiers helps to restrict the scope of class, variables, methods, constructor or data member. It provides
+security, accessibility to the user depending upon the accessmodifier used with the element*/
+
+/*Default access modifier - When no access modifier is specified for a class, method, or data member – It is said to be having 
+the default access modifier by default. The data members, classes, or methods that are not declared using any access 
+modifiers i.e. having default access modifiers are accessible only within the same package.*/
+
+package first;
+
+class Dog {
+    void display() {
+        System.out.println("Hello Doggy");
+    }
+}
+/*In the above package(first) class or method is not declared by using any access modifiers .*/
+
+package second;
+import first.*;
+
+class Main {
+    public static void main(String[] args) {
+        Dog obj1 = new Dog();
+        obj1.display();
+    }
+}
+/*In the second package if we try to import first package and access the class from first package then it gives 
+a compile time error*/

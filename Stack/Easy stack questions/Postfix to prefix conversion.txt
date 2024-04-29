@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static boolean isoperator(char ch) {
+        switch(ch) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case '%': return true;
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        Stack<String> stack = new Stack<>();
+        for(int i=0;i<s.length();i++) {
+            if(!isoperator(s.charAt(i))) {
+                stack.push(s.charAt(i)+"");
+            }
+            else {
+                String op1 = stack.peek();
+                stack.pop();
+                String op2 = stack.peek();
+                stack.pop();
+                String res = s.charAt(i)+op2+op1;
+                stack.push(res);
+            }
+        }
+        String res = "";
+        for(String i : stack) {
+            res+=i;
+        }
+        System.out.println(stack);
+        System.out.println(res);
+    }
+}

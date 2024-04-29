@@ -1,0 +1,114 @@
+Level order traversal using naive approach
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct node {
+    int data;
+    struct node *leftchild;
+    struct node *rightchild;
+};
+
+struct node *root = NULL;
+
+void insert(int item)
+{
+    struct node *temp = (struct node *)malloc(sizeof(struct node));
+    temp->data = item;
+    temp->leftchild = NULL;
+    temp->rightchild = NULL;
+    struct node *current;
+    struct node *parent;
+    if(root == NULL)
+    {
+        root = temp;
+    }
+    else
+    {
+        current = root;
+        parent = NULL;
+        while(1)
+        {
+            parent = current;
+            if(item<parent->data)
+            {
+                current  = current->leftchild;
+                if(current==NULL)
+                {
+                    parent->leftchild = temp;
+                    return;
+                }
+            }
+            else
+            {
+                current  = current->rightchild;
+                if(current==NULL)
+                {
+                    parent->rightchild = temp;
+                    return;
+                }
+            }
+        }
+    }
+}
+
+int height(struct node *root)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+    int lheight = height(root->leftchild);
+    int rheight = height(root->rightchild);
+    if(lheight > rheight)
+    {
+        return lheight+1;
+    }
+    else
+    {
+        return rheight+1;
+    }
+}
+
+void printlevel(struct node *root,int level)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    if(level==1)
+    {
+        printf("%d ",root->data);
+    }
+    else if(level>1)
+    {
+        printlevel(root->leftchild,level-1);
+        printf("\n");
+        printlevel(root->rightchild,level-1);
+    }
+}
+
+void printalllevels(struct node *root)
+{
+    int h = height(root);
+    for(int i=1;i<=h;i++)
+    {
+        printlevel(root,i);
+    }
+}
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        insert(arr[i]);
+    }
+    printalllevels(root);
+}

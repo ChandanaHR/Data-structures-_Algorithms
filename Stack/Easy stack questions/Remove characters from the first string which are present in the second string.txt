@@ -1,0 +1,22 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s1 = sc.nextLine();
+        String s2 = sc.nextLine();
+        Stack<Character> stack = new Stack<>();
+        for(char ch : s1.toCharArray()) {
+            if(!s2.contains(String.valueOf(ch))) {
+                stack.push(ch);
+            }
+        }
+        StringBuilder res = new StringBuilder();
+        while(!stack.isEmpty()) {
+            res.insert(0,stack.pop());
+        }
+        System.out.println(res.toString());
+    }
+}

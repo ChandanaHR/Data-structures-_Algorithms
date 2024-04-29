@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left,right;
+    Node(int a)
+    {
+        data = a;
+        left = null;
+        right = null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static boolean isvalid(Node root,Node min,Node max)
+    {
+        if(root==null)
+        {
+            return true;
+        }
+        if(min!=null && root.data<=min.data)
+        {
+            return false;
+        }
+        if(max!=null && root.data>=max.data)
+        {
+            return false;
+        }
+        return isvalid(root.left,min,root) && isvalid(root.right,root,max);
+    }
+    public static boolean isBST(Node root)
+    {
+        return isvalid(root,null,null);
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(1);
+        insertleft(root,2);
+        insertright(root,5);
+        insertleft(root.left,8);
+        insertright(root.left,3);
+        
+        if(isBST(root))
+        {
+            System.out.println("Given Binary tree is Binary search tree");
+        }
+        else
+        {
+            System.out.println("Given Binary tree is not Binary search tree");
+        }
+    }
+}

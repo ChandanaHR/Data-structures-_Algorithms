@@ -1,0 +1,42 @@
+/*Multi level inheritance - One subclass will inherit the properties of parent class and that parent class will be a subclass to
+another parent class*/
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Animal {
+    public void eat() {
+        System.out.println("One of the main function of the animal is to eat");
+    }
+}
+
+class dog extends Animal {
+    String color,pattern;
+    dog(String col, String patt) {
+        color = col;
+        pattern = patt;
+    }
+    public String display() {
+        return("The type of the dog with color: "+color+ " and pattern: "+pattern+ " is");
+    }
+}
+
+class typeofdog extends dog {
+    String breed;
+    typeofdog(String color,String pattern,String type) {
+        super(color,pattern);
+        breed = type;
+    }
+    @Override public String display() {
+        return(super.display() +" "+breed);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        typeofdog t1 = new typeofdog("White","Spotted","Dalmatian");
+        t1.eat();
+        System.out.println(t1.display());
+    }
+}

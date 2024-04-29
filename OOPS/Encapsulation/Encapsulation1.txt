@@ -1,0 +1,23 @@
+/* Encapsulation - Wrapping up of data, variables, methods into single unit. Some professionals refer this as "data hiding".
+Encapsulation hides the class variables from other classes. These class variables can be accessed only through the methods of the
+current class, and cannot be accessed by the methods of other class leading to data hiding*/
+
+class Area {
+    int length;    //Instance variables
+    int breadth;
+    Area(int len,int bre) {   //Constructor
+        length = len;
+        breadth = bre;
+    }
+    public void area() {   //Method
+        int area = length*breadth;
+        System.out.println("Area:-> " +area);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Area a = new Area(2,3);
+        a.area();
+    }
+}

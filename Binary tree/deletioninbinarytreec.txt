@@ -1,0 +1,155 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define MAXSIZE 20
+
+struct node {
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node *createnode(int item)
+{
+    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = item;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    return newnode;
+}
+
+struct node *insertleft(struct node *root,int item)
+{
+    root->left = createnode(item);
+    return root->left;
+}
+
+struct node *insertright(struct node *root,int item)
+{
+    root->right = createnode(item);
+    return root->right;
+}
+
+struct node **createqueue(int *front,int *rear)
+{
+    struct node **queue = (struct node **)malloc(MAXSIZE*sizeof(struct node *));
+    *front = *rear = -1;
+    return queue;
+}
+
+void enqueue(struct node **queue,int *rear,int *front,struct node *newnode)
+{
+    if(*front==-1)
+    {
+        *front = 0;
+    }
+    (*rear)++;
+    queue[*rear] = newnode;
+}
+
+struct node *dequeue(struct node **queue,int *rear,int *front)
+{
+    (*front)++;
+    return queue[*front-1];
+}
+
+int isFull(struct node **queue,int *rear)
+{
+    if(*rear == MAXSIZE-1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int isEmpty(struct node **queue,int *rear,int *front)
+{
+    if(*front==-1 || *front>*rear)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void deletion(struct node *root,int key)
+{
+   if(root==NULL)
+   {
+       return;
+   }
+   int rear,front;
+   struct node **queue = createqueue(&front,&rear);
+   struct node *temp = NULL;
+   struct node *keynode = NULL;
+   struct node *last = NULL;
+   enqueue(queue,&rear,&front,root);
+   while(!isEmpty(queue,&rear,&front))
+   {
+       temp = dequeue(queue,&rear,&front);
+       if(temp->data == key)
+       {
+           keynode = temp;
+       }
+       if(temp->left != NULL)
+       {
+           last = temp;
+           enqueue(queue,&rear,&front,temp->left);
+       }
+       if(temp->right != NULL)
+       {
+           last = temp;
+           enqueue(queue,&rear,&front,temp->right);
+       }
+   }
+   if(keynode!=NULL)
+   {
+       keynode->data = temp->data;
+       if(last->right==temp)
+       {
+           last->right = NULL;
+       }
+       else
+       {
+           last->left = NULL;
+       }
+   }
+}
+
+void display(struct node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    printf("%d ",root->data);
+    display(root->left);
+    display(root->right);
+}
+
+int main()
+{
+   struct node *root = createnode(1);
+   insertleft(root,2);
+   insertright(root,3);
+   insertleft(root->left,4);
+   insertright(root->left,5);
+   insertleft(root->right,6);
+   insertright(root->right,7);
+   
+   display(root);
+   
+   int key = 2;
+   deletion(root,key);
+   
+   printf("\n");
+   
+   display(root);
+   
+   return 0;
+}

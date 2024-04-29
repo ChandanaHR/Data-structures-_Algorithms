@@ -1,0 +1,88 @@
+//Insertion in binary tree level order traversal
+
+import java.io.*;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.lang.*;
+
+class Node
+{
+    int data;
+    Node left,right;
+    Node(int a)
+    {
+        data = a;
+        left=right=null;
+    }
+}
+
+public class Main {
+    public static Node insertleft(Node node,int item)
+    {
+        node.left = new Node(item);
+        return node.left;
+    }
+    public static Node insertright(Node node,int item)
+    {
+        node.right = new Node(item);
+        return node.right;
+    }
+    public static void insertionbinary(Node node,int key)
+    {
+        if(node==null)
+        {
+            Node root = new Node(key);
+            return;
+        }
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(node);
+        while(!q.isEmpty())
+        {
+            node = q.peek();
+            q.remove();
+            if(node.left==null)
+            {
+                node.left = new Node(key);
+                break;
+            }
+            else
+            {
+                q.add(node.left);
+            }
+            if(node.right==null)
+            {
+                node.right = new Node(key);
+                break;
+            }
+            else
+            {
+                q.add(node.right);
+            }
+        }
+    }
+    public static void display(Node node)
+    {
+        if(node==null)
+        {
+            return;
+        }
+        System.out.print(node.data+" ");
+        display(node.left);
+        display(node.right);
+    }
+    public static void main(String[] args)
+    {
+        Node root = new Node(1);
+        insertleft(root,2);
+        insertright(root,3);
+        insertleft(root.left,4);
+        insertleft(root.right,6);
+        insertright(root.right,7);
+        System.out.println("Insertion before key");
+        display(root);
+        insertionbinary(root,5);
+        System.out.println();
+        System.out.println("Insertion after key");
+        display(root);
+    }
+}

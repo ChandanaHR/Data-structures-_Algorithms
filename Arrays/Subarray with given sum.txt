@@ -1,0 +1,35 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int nums[] = new int[n];
+        for(int i=0;i<n;i++)
+        {
+            nums[i] = sc.nextInt();
+        }
+      //  List a1 = Arrays.asList(nums);
+       // List<Integer> a1 = new ArrayList<Integer>(Arrays.asList(nums));
+        HashMap<Integer, Integer> map = new HashMap<>();
+        List<Integer> subarray = new ArrayList<>();
+        map.put(0,0);
+        int currentsum = 0;
+        for(int i=0;i<n;i++)
+        {
+            currentsum+=nums[i];
+            if(map.containsKey(currentsum-k))
+            {
+                subarray.add(map.get(currentsum-k)+1);
+                subarray.add(i+1);
+                break;
+            }
+            map.put(currentsum,i+1);
+        }
+        System.out.println(subarray);
+    }
+}

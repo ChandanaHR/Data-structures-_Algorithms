@@ -1,0 +1,76 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+class Edge {
+    int source;
+    int destination;
+    Edge(int s,int d) {
+        source = s;
+        destination = d;
+    }
+}
+
+public class Main {
+    public static void creategraph(ArrayList<Edge> graph[],int v) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the source vertex");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination vertex");
+        int dest = sc.nextInt();
+        graph[src].add(new Edge(src,dest));
+    }
+    public static void display(ArrayList<Edge> graph[],int v) {
+        for(int i=0;i<v;i++) {
+            for(int j=0;j<graph[i].size();j++) {
+                Edge e = graph[i].get(j);
+                System.out.print(i+"->"+e.destination+" ");
+            }
+            System.out.println();
+        }
+    }
+    public static void topologicalsortutil(ArrayList<Edge> graph[],boolean visited[],int curr,int v,Stack<Integer> stack) {
+        visited[curr] = true;
+        for(int i=0;i<graph[curr].size();i++) {
+            Edge e = graph[curr].get(i);
+            if(!visited[e.destination]) {
+                topologicalsortutil(graph,visited,e.destination,v,stack);
+            }
+        }
+        stack.push(curr);
+    }
+    public static void topologicalsort(ArrayList<Edge> graph[],int v) {
+        boolean[] visited = new boolean[v];
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<v;i++) {
+            if(!visited[i]) {
+                topologicalsortutil(graph,visited,i,v,stack);
+            }
+        }
+        while(!stack.isEmpty()) {
+            System.out.print(stack.pop()+" ");
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        ArrayList<Edge> graph[] = new ArrayList[v];
+        for(int i=0;i<v;i++) {
+            graph[i] = new ArrayList<>();
+        }
+        while(true) {
+            System.out.println("Enter the choice");
+            int choice = sc.nextInt();
+            switch(choice) {
+                case 1 : creategraph(graph,v);
+                         break;
+                case 2 : display(graph,v);
+                         break;
+                case 3 : topologicalsort(graph,v);
+                         break;
+                case 4 : System.exit(0);
+                default: System.out.println("Invalid choice");
+            }
+        }
+    }
+}

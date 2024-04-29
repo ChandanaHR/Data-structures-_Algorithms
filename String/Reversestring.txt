@@ -1,0 +1,21 @@
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String s = sc.nextLine();
+		String str[] = s.split("[.]");
+		System.out.println(str.length);
+		for(String s1 : str)
+		{
+		    System.out.print(s1+" ");
+		}
+		System.out.println();
+		String res = "";
+		for(int i=str.length-1;i>0;i--)
+		{
+		    res = res + str[i] + ".";
+		}
+		res = res + str[0];
+		System.out.println(res);
+	}
+}
